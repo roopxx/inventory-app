@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav.navbar 
+      ul.navbar-nav
+        li.nav-item
+          a.nav-link(href='/') Home
+        li.nav-item
+          a.nav-link(href='/store/categories') Categories
+        li.nav-item
+          a.nav-link(href='/store/items') Items
+    block content
