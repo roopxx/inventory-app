@@ -8,3 +8,10 @@ exports.items_list = asyncHandler(async (req, res, next) => {
     items: items,
   });
 });
+
+exports.item_detail = asyncHandler(async (req, res, next) => {
+  const item = await Items.findById(req.params.id).exec();
+  res.render("item_detail", {
+    item: item,
+  });
+});

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h2 #{category.type}
+  - for (let i = 0; i < category_items.length; i++) {
+    div
+      a(href=category_items[i].url) 
+        h3 #{category_items[i].item_name}
+      p #{category_items[i].description}
+      p #{category_items[i].price}
+      p #{category_items[i].stock_in_hand}
+    - }

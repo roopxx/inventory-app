@@ -16,3 +16,14 @@ exports.categories = asyncHandler(async (req, res, next) => {
     categories: categories,
   });
 });
+
+exports.category_detail = asyncHandler(async (req, res, next) => {
+  const category = await Category.findById(req.params.id)
+    .populate("items")
+    .exec();
+
+  res.render("category_detail", {
+    category: category,
+    category_items: category.items,
+  });
+});

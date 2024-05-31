@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    h1 Item Detail
+    div
+        label(for='name') Item Name:
+        p#name= item.item_name
+    div
+        label(for='description') Description:
+        p#description= item.description
+    div
+        label(for='price') Price:
+        p#price= item.price
+    div
+        label(for='stock_in_hand') Stock in Hand:
+        p#stock_in_hand= item.stock_in_hand
