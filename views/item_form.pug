@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    h1= title
+    form(method='POST')
+        div
+        label(for='name') Item Name:
+        input#name(type='text' name='item_name')
+        div
+        label(for='description') Description:
+        input#description(type='text' name='description')
+        div
+        label(for='price') Price:
+        input#price(type='text' name='price')
+        div
+        label(for='stock_in_hand') Stock in Hand:
+        input#stock_in_hand(type='text' name='stock_in_hand')
+        div
+        label(for='category') Category:
+        select#category(type='text' name='category')
+            each category in categories
+                option(value=category._id)= category.type
+        button(type='submit') Create Item

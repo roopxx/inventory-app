@@ -27,3 +27,19 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
     category_items: category.items,
   });
 });
+
+exports.category_create_get = asyncHandler(async (req, res, next) => {
+  res.render("category_form", {
+    title: "Create Category",
+  });
+});
+
+exports.category_create_post = asyncHandler(async (req, res, next) => {
+  const category = new Category({
+    type: req.body.category_type,
+  });
+
+  category.save();
+
+  res.redirect(category.url);
+});

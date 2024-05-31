@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1= title 
+    form(method='POST')
+        div
+        label(for='name') Category Name:
+        input#name(type='text' name='category_type')
+        button(type='submit') Create Category
