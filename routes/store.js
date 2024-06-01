@@ -33,4 +33,8 @@ router.get("/item/:id/delete", item_controller.item_delete_get); // Delete item
 
 router.post("/item/:id/delete", item_controller.item_delete_post); // Delete item
 
+router.get("/item/:id/stock_in_hand", item_controller.item_stock_in_hand); // Update stock in hand'
+
+router.post("/item/:id/stock_in_hand", item_controller.item_stock_in_hand_post); // Update stock in hand'
+
 module.exports = router;

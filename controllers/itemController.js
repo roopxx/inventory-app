@@ -51,3 +51,18 @@ exports.item_delete_post = asyncHandler(async (req, res, next) => {
   await Items.findByIdAndDelete(req.body.id).exec();
   res.redirect("/store/items");
 });
+
+exports.item_stock_in_hand = asyncHandler(async (req, res, next) => {
+  const item = await Items.findById(req.params.id).exec();
+  res.render("item_stock", {
+    item: item,
+  });
+});
+
+exports.item_stock_in_hand_post = asyncHandler(async (req, res, next) => {
+  const item = await Items.findById(req.params.id).exec();
+  item.stock_in_hand = req.body.stock_in_hand;
+
+  await item.save();
+  res.redirect(item.url);
+});

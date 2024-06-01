@@ -1,0 +1,12 @@
+extends layout
+
+block content 
+    h1 Change Stock of #{item.item_name}
+
+    form(method='POST')
+        div
+        label(for='stock_in_hand') Stock in Hand:
+        input#stock_in_hand(type='text' name='stock_in_hand')
+        button(type='submit') Update Stock
+    a(href="/store/items") Cancel
+    

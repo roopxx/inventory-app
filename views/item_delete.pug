@@ -2,9 +2,20 @@ extends layout
 
 block content
     h2 Delete Item
-    h3 Are you sure you want to delete this item: #{item.item_name}?
-    form(method='POST')
-        input(type='hidden',name='id', value=item._id )
-        button(type='submit') Delete
-    br
+
+    if item.stock_in_hand
+        h3 #{item.item_name} has the following details:
+        ol
+            li Name: #{item.item_name}
+            li Description: #{item.description}
+            li Price: #{item.price}
+            li Stock in Hand: #{item.stock_in_hand} 
+        h3 You must have no stock in hand before deleting the item.
+        a(href=`${item.url}/stock_in_hand`) Delete Stock in Hand
+        br
+    else
+        h3 Are you sure you want to delete this item: #{item.item_name}?
+        form(method='POST')
+            input(type='hidden',name='id', value=item._id )
+            button(type='submit') Delete
     a(href="/store/items") Cancel
