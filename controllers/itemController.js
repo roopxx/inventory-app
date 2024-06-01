@@ -66,3 +66,29 @@ exports.item_stock_in_hand_post = asyncHandler(async (req, res, next) => {
   await item.save();
   res.redirect(item.url);
 });
+
+exports.item_update_get = asyncHandler(async (req, res, next) => {
+  const item = await Items.findById(req.params.id).exec();
+  const categories = await Category.find({}, "type").exec();
+
+  res.render("item_form", {
+    title: "Update Item",
+    item: item,
+    categories: categories,
+  });
+});
+
+exports.item_update_post = asyncHandler(async (req, res, next) => {
+  const item = new Items({
+    item_name: req.body.item_name,
+    description: req.body.description,
+    category: req.body.category,
+    price: req.body.price,
+    stock_availability: req.body.stock_in_hand > 0 ? true : false,
+    stock_in_hand: req.body.stock_in_hand,
+    _id: req.params.id,
+  });
+
+  await Items.findByIdAndUpdate(req.params.id, item).exec();
+  res.redirect(item.url);
+});

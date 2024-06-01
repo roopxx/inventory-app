@@ -5,5 +5,5 @@ block content
     form(method='POST')
         div
         label(for='name') Category Name:
-        input#name(type='text' name='category_type')
-        button(type='submit') Create Category
+        input#name(type='text' name='category_type' value=(category === undefined ? '' : category.type))
+        button(type='submit') #{title}

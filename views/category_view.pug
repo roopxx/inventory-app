@@ -6,5 +6,7 @@ block content
       each category in categories
         li 
           a(href=category.url)= category.type
+          br
+          a(href=`${category.url}/update`) Update this category
 
   a(href="/store/category/create") Create a new category

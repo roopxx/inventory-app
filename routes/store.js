@@ -19,6 +19,10 @@ router.get("/category/:id/delete", category_controller.category_delete_get); // 
 
 router.post("/category/:id/delete", category_controller.category_delete_post); // Delete category
 
+router.get("/category/:id/update", category_controller.category_update_get); // Update category
+
+router.post("/category/:id/update", category_controller.category_update_post); // Update category
+
 /// ITEM ROUTES ///
 
 router.get("/items", item_controller.items_list); // Get all items
@@ -35,6 +39,10 @@ router.post("/item/:id/delete", item_controller.item_delete_post); // Delete ite
 
 router.get("/item/:id/stock_in_hand", item_controller.item_stock_in_hand); // Update stock in hand'
 
-router.post("/item/:id/stock_in_hand", item_controller.item_stock_in_hand_post); // Update stock in hand'
+router.post("/item/:id/stock_in_hand", item_controller.item_stock_in_hand_post); // Update stock in hand
+
+router.get("/item/:id/update", item_controller.item_update_get); // Update item
+
+router.post("/item/:id/update", item_controller.item_update_post); // Update item
 
 module.exports = router;
