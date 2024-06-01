@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h2 Delete Item
+    h3 Are you sure you want to delete this item: #{item.item_name}?
+    form(method='POST')
+        input(type='hidden',name='id', value=item._id )
+        button(type='submit') Delete
+    br
+    a(href="/store/items") Cancel

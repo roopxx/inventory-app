@@ -2,6 +2,7 @@ extends layout
 
 block content
   h2 #{category.type}
+  a(href=`${category.url}/delete`) Delete Category
   - for (let i = 0; i < category_items.length; i++) {
     div
       a(href=category_items[i].url) 
@@ -10,3 +11,5 @@ block content
       p #{category_items[i].price}
       p #{category_items[i].stock_in_hand}
     - }
+  br
+  a(href="/store/item/create") Add item    

@@ -39,7 +39,23 @@ exports.category_create_post = asyncHandler(async (req, res, next) => {
     type: req.body.category_type,
   });
 
-  category.save();
+  await category.save();
 
-  res.redirect(category.url);
+  res.redirect("/store/categories");
+});
+
+exports.category_delete_get = asyncHandler(async (req, res, next) => {
+  const category = await Category.findById(req.params.id).exec();
+  const items = await Items.find({ category: req.params.id }).exec();
+
+  res.render("category_delete", {
+    category: category,
+    items: items,
+  });
+});
+
+exports.category_delete_post = asyncHandler(async (req, res, next) => {
+  await Category.findByIdAndDelete(req.body.id).exec();
+
+  res.redirect("/store/categories");
 });

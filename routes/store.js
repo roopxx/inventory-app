@@ -15,12 +15,22 @@ router.post("/category/create", category_controller.category_create_post); // Cr
 
 router.get("/category/:id", category_controller.category_detail); // Get category by ID
 
+router.get("/category/:id/delete", category_controller.category_delete_get); // Delete category
+
+router.post("/category/:id/delete", category_controller.category_delete_post); // Delete category
+
 /// ITEM ROUTES ///
 
 router.get("/items", item_controller.items_list); // Get all items
 
 router.get("/item/create", item_controller.item_create_get); // Create item
 
+router.post("/item/create", item_controller.item_create_post); // Create item
+
 router.get("/item/:id", item_controller.item_detail); // Get item by ID
+
+router.get("/item/:id/delete", item_controller.item_delete_get); // Delete item
+
+router.post("/item/:id/delete", item_controller.item_delete_post); // Delete item
 
 module.exports = router;

@@ -2,6 +2,8 @@ extends layout
 
 block content
     h1 Item Detail
+    a(href=`${item.url}/delete`) Delete Item
+    p= item.url
     div
         label(for='name') Item Name:
         p#name= item.item_name

@@ -35,7 +35,19 @@ exports.item_create_post = asyncHandler(async (req, res, next) => {
     stock_in_hand: req.body.stock_in_hand,
   });
 
-  item.save();
+  await item.save();
 
   res.redirect(item.url);
+});
+
+exports.item_delete_get = asyncHandler(async (req, res, next) => {
+  const item = await Items.findById(req.params.id).exec();
+  res.render("item_delete", {
+    item: item,
+  });
+});
+
+exports.item_delete_post = asyncHandler(async (req, res, next) => {
+  await Items.findByIdAndDelete(req.body.id).exec();
+  res.redirect("/store/items");
 });
