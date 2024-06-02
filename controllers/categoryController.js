@@ -4,8 +4,11 @@ const asyncHandler = require("express-async-handler");
 
 // Display home page
 exports.index = asyncHandler(async (req, res, next) => {
+  const items = await Items.aggregate().sample(10).exec();
+
   res.render("index", {
     title: "Pet Shop Home Page",
+    items: items,
   });
 });
 

@@ -1,5 +1,18 @@
 extends layout
 
 block content 
-    h1= title 
-    
+    h1.title= title 
+    div.intro
+        h2 Welcome to our Pet Shop!
+        p We offer a wide range of pet food, toys, and items for dogs and cats. Whether you have a furry friend at home or are looking to adopt one, we have everything you need to keep them happy and healthy.
+    div.featured
+        h2 Featured Items
+        ul.item-list
+            each item in items
+                li.item
+                    img(src='/images/sample.jpg', alt=item.item_name)
+                    h3.item-name= item.item_name
+                    p.item-price= item.price
+                    p.item-description= item.description
+                    a.button(href=`/store/item/${item._id}`) View Item
+                    
