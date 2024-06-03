@@ -1,20 +1,15 @@
 extends layout
 
 block content
-    h1 Item Detail
-    a(href=`${item.url}/delete`) Delete Item
-    p= item.url
-    div
-        label(for='name') Item Name:
-        p#name= item.item_name
-    div
-        label(for='description') Description:
-        p#description= item.description
-    div
-        label(for='price') Price:
-        p#price= item.price
-    div
-        label(for='stock_in_hand') Stock in Hand:
-        p#stock_in_hand= item.stock_in_hand
-
-    a(href=`${item.url}/update`) Update Item
+    .header
+        h2.title= item.item_name
+        a.button.i-delete(href=`${item.url}/delete`) Delete Item
+    .item-detail
+        .item-showcase 
+            img(src='/images/sample.jpg', alt=item.item_name)
+            p.item-description= item.description
+        p.item-price Rs: #{item.price}
+        .button-group 
+            a.button.update(href=`${item.url}/update`) Update Item
+            a.button(href="/store/item/create") Add Item
+            a.button.back(href="/store") Back to Store

@@ -176,3 +176,40 @@ img {
   gap: 1em;
   list-style: none;
 }
+
+.i-delete {
+  background: #ff6666;
+  width: fit-content;
+}
+
+.item-detail {
+  padding: 1em 2em;
+  font-size: 1.25em;
+}
+
+.item-showcase {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+}
+
+.item-showcase p {
+  font-size: 2em;
+}
+
+.item-detail img {
+  width: 50%;
+}
+
+.button-group {
+  margin: 2em 0em;
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.back {
+  background: black;
+  color: white;
+}
