@@ -52,13 +52,13 @@
   font-size: 1.7em;
 }
 
-.featured img {
+img {
   width: 100%;
 }
 
 .item-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 1em;
   list-style: none;
 }
@@ -145,4 +145,17 @@
 .create a {
   margin: 0 auto;
   width: 30%;
+}
+
+.item-name {
+  font-size: 1.3em;
+}
+
+.item-description {
+  font-size: 1.1em;
+}
+
+.item-price {
+  text-align: right;
+  font-size: 1.05em;
 }

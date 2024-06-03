@@ -1,10 +1,15 @@
 extends layout
 
 block content
-    h2 Items
-    ul
-        each item in items
-            li
-                a(href=item.url)= item.item_name
-
-    a(href="/store/item/create") Create a new item
+  .container 
+    h2.title= title
+        ul.item-list
+          each item in items
+            li.item
+              img(src='/images/sample.jpg', alt=item.item_name)
+              h3.item-name= item.item_name
+              p.item-description= item.description
+              p.item-price Rs. #{item.price}
+              a.button(href=item.url) View Item
+  div.create
+    a.button(href="/store/item/create") Create a new item

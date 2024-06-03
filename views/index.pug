@@ -12,7 +12,7 @@ block content
                 li.item
                     img(src='/images/sample.jpg', alt=item.item_name)
                     h3.item-name= item.item_name
-                    p.item-price= item.price
+                    p.item-price Rs: #{item.price}
                     p.item-description= item.description
                     a.button(href=`/store/item/${item._id}`) View Item
                     
