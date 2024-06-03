@@ -28,7 +28,6 @@
 
 .title {
   background-color: #f4f4f4;
-  padding: 1em 2em;
   font-size: 2em;
 }
 
@@ -160,6 +159,7 @@ img {
 }
 
 .header {
+  padding: 1em 2em;
   display: flex;
   justify-content: space-between;
   align-items: center;
