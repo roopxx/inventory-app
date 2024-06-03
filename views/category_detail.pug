@@ -1,15 +1,15 @@
 extends layout
 
 block content
-  h2 #{category.type}
-  a(href=`${category.url}/delete`) Delete Category
-  - for (let i = 0; i < category_items.length; i++) {
-    div
-      a(href=category_items[i].url) 
-        h3 #{category_items[i].item_name}
-      p #{category_items[i].description}
-      p #{category_items[i].price}
-      p #{category_items[i].stock_in_hand}
-    - }
-  br
+  .header
+    h2.title= category.type 
+    a.button.c-delete(href=`${category.url}/delete`) Delete Category
+  ul.category-item-list
+    each item in category_items
+      li.item
+        img(src='/images/sample.jpg', alt=item.item_name)
+        h3.item-name= item.item_name
+        p.item-description= item.description
+        p.item-price Rs: #{item.price}
+        a.button(href=item.url) View Item        
   a(href="/store/item/create") Add item    

@@ -89,7 +89,6 @@ img {
   color: black;
   font-weight: bold;
   text-decoration: none;
-  align-self: end;
 }
 
 .category-list {
@@ -158,4 +157,22 @@ img {
 .item-price {
   text-align: right;
   font-size: 1.05em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.c-delete {
+  background: #ff6666;
+  width: fit-content;
+}
+
+.category-item-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  list-style: none;
 }
