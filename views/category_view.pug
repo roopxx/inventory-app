@@ -1,12 +1,16 @@
 extends layout
 
 block content 
-  h2 Categories
-    ul
+  .container 
+    h2.title= title
+    ul.category-list
       each category in categories
-        li 
-          a(href=category.url)= category.type
-          br
-          a(href=`${category.url}/update`) Update this category
+        li.category
+          h4.category-name= category.type
+          div.category-buttons
+            a.button.view(href=`/store/category/${category._id}`) View
+            a.button.update(href=`${category.url}/update`) Update
+            a.button.delete(href=`${category.url}/delete`) Delete
 
-  a(href="/store/category/create") Create a new category
+  div.create
+    a.button(href="/store/category/create") Create a new category

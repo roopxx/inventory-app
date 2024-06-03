@@ -17,6 +17,7 @@ exports.categories = asyncHandler(async (req, res, next) => {
 
   res.render("category_view", {
     categories: categories,
+    title: "Categories",
   });
 });
 
