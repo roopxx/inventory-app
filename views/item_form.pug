@@ -1,24 +1,26 @@
 extends layout
 
 block content
-    h1= title
+    .header 
+        h1.title= title
     form(method='POST')
-        div
-        label(for='item_name') Item Name:
-        input#item_name(type='text' name='item_name' value=(item === undefined ? '' : item.item_name))
-        div
-        label(for='category') Category:
-        select#category(name='category')
-            each category in categories
-                option(value=category._id selected=(item !== undefined && item.category._id === category._id ? 'selected' : ''))= category.type
-        div
-        label(for='stock_in_hand') Stock in Hand:
-        input#stock_in_hand(type='text' name='stock_in_hand' value=(item === undefined ? '' : item.stock_in_hand))
-        div
-        label(for='price') Price:
-        input#price(type='text' name='price' value=(item === undefined ? '' : item.price))
-        div
-        label(for='description') Description:
-        textarea#description(name='description' cols='40' rows='5')= (item === undefined ? '' : item.description)
-        button(type='submit') #{title}
-    a(href="/store/items") Cancel
+        div.form-group
+            label(for='name') Name:
+            input#name.form-control(type='text', name='item_name', value=(item === undefined ? '' : item.item_name))
+        div.form-group
+            label(for='description') Description:
+            input#description.form-control(type='text', name='item_description', value=(item === undefined ? '' : item.description))
+        div.form-group
+            label(for='price') Price:
+            input#price.form-control(type='number', name='item_price', value=(item === undefined ? '' : item.price))
+        div.form-group
+            label(for='stock_in_hand') Stock in Hand:
+            input#stock-in-hand.form-control(type='number', name='item_stock_in_hand', value=(item === undefined ? '' : item.stock_in_hand))
+        div.form-group
+            label(for='category') Category:
+            select#category.form-control(name='category')
+                each category in categories
+                    option(value=category._id, selected=(item !== undefined && item.category._id === category._id ? 'selected' : ''))= category.type
+        .button-group 
+            button.button.submit(type='submit') Submit
+            a.button.cancel(href='/store/items') Cancel

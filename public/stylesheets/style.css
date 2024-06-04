@@ -81,13 +81,14 @@ img {
   width: 50%;
   display: inline-block;
   background: #4e9caf;
-  padding: 10px;
+  padding: 0.8em;
   text-align: center;
   border-radius: 5px;
   border: 1px solid black;
   color: black;
   font-weight: bold;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .category-list {
@@ -133,14 +134,16 @@ img {
   background: #ff6666;
 }
 
-.create {
+.create,
+.add {
   width: 100%;
   margin: 2em 0em;
   padding: 3em 0em;
   display: flex;
 }
 
-.create a {
+.create a,
+.add a {
   margin: 0 auto;
   width: 30%;
 }
@@ -212,4 +215,62 @@ img {
 .back {
   background: black;
   color: white;
+}
+
+form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.7em 0.5em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+label {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.3em;
+}
+
+input {
+  height: 40px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit {
+  background-color: #4e9caf;
+}
+
+.submit:hover {
+  background-color: #23527c;
+  color: white;
+}
+
+.cancel {
+  background: #ff3838;
+}
+
+.cancel:hover {
+  background: #ff0000;
+  color: white;
+}
+
+a {
+  text-decoration: none;
 }

@@ -1,9 +1,12 @@
 extends layout
 
 block content
-    h1= title 
+    .header 
+        h1.title= title
     form(method='POST')
-        div
-        label(for='name') Category Name:
-        input#name(type='text' name='category_type' value=(category === undefined ? '' : category.type))
-        button(type='submit') #{title}
+        div.form-group
+            label(for='name') Name:
+            input#name.form-control(type='text', name='category_type', value=(category ? category.type : ''))
+        .button-group 
+            button.button.submit(type='submit') Submit
+            a.button.cancel(href='/store/categories') Cancel
