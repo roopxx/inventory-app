@@ -69,7 +69,7 @@ exports.item_stock_in_hand_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.item_update_get = asyncHandler(async (req, res, next) => {
-  const item = await Items.findById(req.params.id).exec();
+  const item = await Items.findById(req.params.id).populate("category").exec();
   const categories = await Category.find({}, "type").exec();
 
   res.render("item_form", {

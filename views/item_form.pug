@@ -19,8 +19,10 @@ block content
         div.form-group
             label(for='category') Category:
             select#category.form-control(name='category')
+                if !item
+                    option(value="", selected=(!item)) Select Category
                 each category in categories
-                    option(value=category._id, selected=(item !== undefined && item.category._id === category._id ? 'selected' : ''))= category.type
+                    option(value=category._id, selected=(item && item.category && item.category._id.toString() === category._id.toString()))= category.type        
         .button-group 
             button.button.submit(type='submit') Submit
             a.button.cancel(href='/store/items') Cancel
