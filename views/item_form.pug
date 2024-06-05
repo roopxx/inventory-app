@@ -9,13 +9,13 @@ block content
             input#name.form-control(type='text', name='item_name', value=(item === undefined ? '' : item.item_name))
         div.form-group
             label(for='description') Description:
-            input#description.form-control(type='text', name='item_description', value=(item === undefined ? '' : item.description))
+            input#description.form-control(type='text', name='description', value=(item === undefined ? '' : item.description))
         div.form-group
             label(for='price') Price:
-            input#price.form-control(type='number', name='item_price', value=(item === undefined ? '' : item.price))
+            input#price.form-control(type='number', name='price', value=(item === undefined ? '' : item.price))
         div.form-group
             label(for='stock_in_hand') Stock in Hand:
-            input#stock-in-hand.form-control(type='number', name='item_stock_in_hand', value=(item === undefined ? '' : item.stock_in_hand))
+            input#stock-in-hand.form-control(type='number', name='stock_in_hand', value=(item === undefined ? '' : item.stock_in_hand))
         div.form-group
             label(for='category') Category:
             select#category.form-control(name='category')

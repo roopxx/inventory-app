@@ -53,6 +53,7 @@ exports.category_delete_get = asyncHandler(async (req, res, next) => {
   const items = await Items.find({ category: req.params.id }).exec();
 
   res.render("category_delete", {
+    title: "Delete Category",
     category: category,
     items: items,
   });

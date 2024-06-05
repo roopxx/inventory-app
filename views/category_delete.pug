@@ -1,18 +1,22 @@
 extends layout
 
-block content
-    h2 Delete Category
+block content 
+    .header
+        h2.title= title
 
-    if items.length
-        h3 #{category.type} has the following items:
-        ul
-            each item in items
-                li= item.item_name
-                    br
-                    a(href=`${item.url}/delete`) Delete this item
-        h3 You must delete these items before deleting the category.
-    else
-        h3 Are you sure you want to delete  this category: #{category.type}?
-        form(method='POST')
-            input(type='hidden',name='id', value=category._id )
-            button(type='submit') Delete
+    .item-info
+        if items.length
+            h3.category-title The #{category.type} category has the following items:
+            ul.item-list
+                each item in items
+                    li.item
+                        h4.item-name #{item.item_name}
+                        br
+                        a.button.delete(href=`${item.url}/delete`) Delete this item
+            h3.warning You must delete these items before deleting the category.
+        else
+            h3.warning Are you sure you want to delete this category: #{category.type} ?
+            form(method='POST')
+                input(type='hidden',name='id', value=category._id )
+                button.button.submit(type='submit') Delete
+

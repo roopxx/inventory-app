@@ -42,8 +42,10 @@ exports.item_create_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.item_delete_get = asyncHandler(async (req, res, next) => {
-  const item = await Items.findById(req.params.id).exec();
+  const item = await Items.findById(req.params.id).populate("category").exec();
+
   res.render("item_delete", {
+    title: "Delete Item",
     item: item,
   });
 });
