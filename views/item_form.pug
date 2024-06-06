@@ -25,4 +25,7 @@ block content
                     option(value=category._id, selected=(item && item.category && item.category._id.toString() === category._id.toString()))= category.type        
         .button-group 
             button.button.submit(type='submit') Submit
-            a.button.cancel(href='/store/items') Cancel
+            if item
+                a.button.cancel(href=`${item.url}`) Cancel
+            else
+                a.button.cancel(href='/store/items') Cancel

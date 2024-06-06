@@ -58,6 +58,7 @@ exports.item_delete_post = asyncHandler(async (req, res, next) => {
 exports.item_stock_in_hand = asyncHandler(async (req, res, next) => {
   const item = await Items.findById(req.params.id).exec();
   res.render("item_stock", {
+    title: "Stock In Hand",
     item: item,
   });
 });

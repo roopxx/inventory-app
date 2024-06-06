@@ -1,12 +1,12 @@
 extends layout
 
 block content 
-    h1 Change Stock of #{item.item_name}
-
+    .header
+        h2.title= title
     form(method='POST')
-        div
-        label(for='stock_in_hand') Stock in Hand:
-        input#stock_in_hand(type='text' name='stock_in_hand')
-        button(type='submit') Update Stock
-    a(href="/store/items") Cancel
-    
+        input(type='hidden',name='id', value=item._id )
+        label(for='stock') Stock:
+        input#stock(type='number',name='stock_in_hand', value=item.stock_in_hand)
+        .button-group
+            a.button.cancel(href=item.url) Cancel
+            button.button.submit(type='submit') Change Stock
