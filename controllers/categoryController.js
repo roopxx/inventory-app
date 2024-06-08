@@ -88,11 +88,33 @@ exports.category_delete_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.category_delete_post = asyncHandler(async (req, res, next) => {
-  await Category.findByIdAndDelete(req.body.id).exec();
+exports.category_delete_post = [
+  body("password").custom((value, { req }) => {
+    if (value !== process.env.PASSWORD) {
+      throw new Error("Incorrect password");
+    }
+    return true;
+  }),
 
-  res.redirect("/store/categories");
-});
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const category = await Category.findById(req.body.id).exec();
+      const items = await Items.find({ category: req.body.id }).exec();
+
+      return res.render("category_delete", {
+        title: "Delete Category",
+        category: category,
+        items: items,
+        errors: errors.array(),
+      });
+    } else {
+      await Category.findByIdAndDelete(req.body.id).exec();
+      res.redirect("/store/categories");
+    }
+  }),
+];
 
 exports.category_update_get = asyncHandler(async (req, res, next) => {
   const category = await Category.findById(req.params.id).exec();

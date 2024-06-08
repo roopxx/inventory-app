@@ -4,6 +4,11 @@ block content
     .header
         h2.title= title
 
+    if errors
+        ol.error-modal
+            for error in errors
+                li.validation-error!= error.msg
+
     .item-info
         if items.length
             h3.category-title The #{category.type} category has the following items:
@@ -16,7 +21,15 @@ block content
             h3.warning You must delete these items before deleting the category.
         else
             h3.warning Are you sure you want to delete this category: #{category.type} ?
+            p.warning This action cannot be undone.
             form(method='POST')
                 input(type='hidden',name='id', value=category._id )
-                button.button.submit(type='submit') Delete
+                label(for="password") Enter your password to confirm:
+                input#password.form-control(type='password', name='password')
+                .button-group
+                    button.button.submit(type='submit') Delete
+                    if item
+                        a.button.cancel(href=`${item.url}`) Cancel
+                    else
+                        a.button.cancel(href='/store/items') Cancel
 

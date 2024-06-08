@@ -4,6 +4,7 @@ const Category = require("../models/category");
 const upload = require("../utils/mutler");
 const { imagesToUpload } = require("../utils/cloudinary");
 const { body, validationResult } = require("express-validator");
+require("dotenv").config();
 
 exports.items_list = asyncHandler(async (req, res, next) => {
   const items = await Items.find({}).exec();
@@ -107,10 +108,32 @@ exports.item_delete_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.item_delete_post = asyncHandler(async (req, res, next) => {
-  await Items.findByIdAndDelete(req.body.id).exec();
-  res.redirect("/store/items");
-});
+exports.item_delete_post = [
+  body("password").custom((value, { req }) => {
+    if (value !== process.env.PASSWORD) {
+      throw new Error("Incorrect password");
+    }
+    return true;
+  }),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const item = await Items.findById(req.body.id)
+        .populate("category")
+        .exec();
+      return res.render("item_delete", {
+        title: "Delete Item",
+        item: item,
+        errors: errors.array(),
+      });
+    } else {
+      await Items.findByIdAndDelete(req.body.id).exec();
+      res.redirect("/store/items");
+    }
+  }),
+];
 
 exports.item_stock_in_hand = asyncHandler(async (req, res, next) => {
   const item = await Items.findById(req.params.id).exec();
