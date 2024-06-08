@@ -32,3 +32,8 @@ block content
                 a.button.cancel(href=`${item.url}`) Cancel
             else
                 a.button.cancel(href='/store/items') Cancel
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg

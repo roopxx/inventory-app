@@ -3,6 +3,7 @@ const Items = require("../models/item");
 const Category = require("../models/category");
 const upload = require("../utils/mutler");
 const { imagesToUpload } = require("../utils/cloudinary");
+const { body, validationResult } = require("express-validator");
 
 exports.items_list = asyncHandler(async (req, res, next) => {
   const items = await Items.find({}).exec();
@@ -30,8 +31,28 @@ exports.item_create_get = asyncHandler(async (req, res, next) => {
 
 exports.item_create_post = [
   upload.single("image"),
+  body("item_name")
+    .trim()
+    .isLength({ min: 3 })
+    .escape()
+    .withMessage("Item name is required."),
+  body("description")
+    .trim()
+    .isLength({ min: 10 })
+    .escape()
+    .withMessage("Description is required. A short description is needed."),
+  body("category")
+    .trim()
+    .isLength({ min: 3 })
+    .escape()
+    .withMessage("Category is required."),
+  body("price")
+    .isFloat({ min: 0 })
+    .withMessage("Price must be a positive number."),
+  body("stock_in_hand")
+    .isInt({ min: 0 })
+    .withMessage("Stock must be a non-negative integer."),
   asyncHandler(async (req, res, next) => {
-    console.log(req.file);
     let imageURL = null;
     if (req.file) {
       try {
@@ -40,6 +61,8 @@ exports.item_create_post = [
         return next(error);
       }
     }
+
+    const errors = validationResult(req);
 
     const item = new Items({
       item_name: req.body.item_name,
@@ -51,9 +74,27 @@ exports.item_create_post = [
       stock_in_hand: req.body.stock_in_hand,
     });
 
-    await item.save();
+    if (!errors.isEmpty()) {
+      const categories = await Category.find({}, "type").exec();
+      return res.render("item_form", {
+        title: "Create Item",
+        categories: categories,
+        item: item,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      const itemExists = await Items.findOne({ item_name: req.body.item_name })
+        .collation({ locale: "en", strength: 2 })
+        .exec();
 
-    res.redirect(item.url);
+      if (itemExists) {
+        res.redirect(itemExists.url);
+      } else {
+        await item.save();
+        res.redirect(item.url);
+      }
+    }
   }),
 ];
 
@@ -100,13 +141,37 @@ exports.item_update_get = asyncHandler(async (req, res, next) => {
 
 exports.item_update_post = [
   upload.single("image"),
+  body("item_name")
+    .trim()
+    .isLength({ min: 3 })
+    .escape()
+    .withMessage("Item name is required."),
+  body("description")
+    .trim()
+    .isLength({ min: 10 })
+    .escape()
+    .withMessage("Description is required. A short description is needed."),
+  body("category")
+    .trim()
+    .isLength({ min: 3 })
+    .escape()
+    .withMessage("Category is required."),
+  body("price")
+    .isFloat({ min: 0 })
+    .withMessage("Price must be a positive number."),
+  body("stock_in_hand")
+    .isInt({ min: 0 })
+    .withMessage("Stock must be a non-negative integer."),
   asyncHandler(async (req, res, next) => {
     let imageURL = null;
 
     if (req.file) {
-      imageURL = await imagesToUpload(req.file.path);
+      try {
+        imageURL = await imagesToUpload(req.file.path);
+      } catch (error) {
+        return next(error);
+      }
     }
-    console.log(imageURL);
 
     const item = new Items({
       item_name: req.body.item_name,
@@ -119,7 +184,21 @@ exports.item_update_post = [
       _id: req.params.id,
     });
 
-    await Items.findByIdAndUpdate(req.params.id, item).exec();
-    res.redirect(item.url);
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const categories = await Category.find({}, "type").exec();
+      const items = await Items.findById(req.params.id).exec();
+      return res.render("item_form", {
+        title: "Update Item",
+        item: item,
+        categories: categories,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      await Items.findByIdAndUpdate(req.params.id, item).exec();
+      res.redirect(item.url);
+    }
   }),
 ];

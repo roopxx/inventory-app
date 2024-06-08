@@ -10,3 +10,8 @@ block content
         .button-group 
             button.button.submit(type='submit') Submit
             a.button.cancel(href='/store/categories') Cancel
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg

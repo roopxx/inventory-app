@@ -1,6 +1,7 @@
 const Category = require("../models/category");
 const Items = require("../models/item");
 const asyncHandler = require("express-async-handler");
+const { body, validationResult } = require("express-validator");
 
 // Display home page
 exports.index = asyncHandler(async (req, res, next) => {
@@ -38,15 +39,43 @@ exports.category_create_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.category_create_post = asyncHandler(async (req, res, next) => {
-  const category = new Category({
-    type: req.body.category_type,
-  });
+exports.category_create_post = [
+  body(
+    "category_type",
+    "Category type required and it must be at least 3 characters long."
+  )
+    .trim()
+    .isLength({ min: 3 }),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
 
-  await category.save();
+    const category = new Category({
+      type: req.body.category_type,
+    });
 
-  res.redirect("/store/categories");
-});
+    if (!errors.isEmpty()) {
+      res.render("category_form", {
+        title: "Create Category",
+        category: category,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      const categoryExists = await Category.findOne({
+        type: req.body.category_type,
+      })
+        .collation({ locale: "en", strength: 2 })
+        .exec();
+
+      if (categoryExists) {
+        res.redirect(categoryExists.url);
+      } else {
+        await category.save();
+        res.redirect(category.url);
+      }
+    }
+  }),
+];
 
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
   const category = await Category.findById(req.params.id).exec();
@@ -74,13 +103,31 @@ exports.category_update_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.category_update_post = asyncHandler(async (req, res, next) => {
-  const category = new Category({
-    type: req.body.category_type,
-    _id: req.params.id,
-  });
+exports.category_update_post = [
+  body(
+    "category_type",
+    "Category type required and it must be at least 3 characters long."
+  )
+    .trim()
+    .isLength({ min: 3 }),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
 
-  await Category.findByIdAndUpdate(req.params.id, category).exec();
+    const category = new Category({
+      type: req.body.category_type,
+      _id: req.params.id,
+    });
 
-  res.redirect(category.url);
-});
+    if (!errors.isEmpty()) {
+      res.render("category_form", {
+        title: "Update Category",
+        category: category,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      await Category.findByIdAndUpdate(req.params.id, category).exec();
+      res.redirect(category.url);
+    }
+  }),
+];
