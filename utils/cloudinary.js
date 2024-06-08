@@ -1,5 +1,6 @@
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
+const path = require("path");
 
 cloudinary.config({
   secure: true,
@@ -51,24 +52,26 @@ const images = [
 ];
 
 const imagesToUpload = async (image) => {
-  const matched = image.match(/([^/]+?)(?=\.[^/.]*$)/);
-  const fileName = matched ? matched[0] : null;
+  const fileName = path.parse(image).name;
   if (!fileName) {
     throw new Error("No file name found");
   }
 
-  return await cloudinary.uploader.upload(image, {
+  const uploaded = await cloudinary.uploader.upload(image, {
     folder: "pet-store",
     public_id: fileName,
     transformation: [{ width: 500, height: 500 }, { quality: "auto" }],
   });
+
+  return uploaded.secure_url;
 };
 
 (async () => {
   try {
     const uploads = await Promise.all(images.map(imagesToUpload));
-    console.log(uploads);
   } catch (error) {
     console.error("Error uploading images:", error);
   }
 })();
+
+exports.imagesToUpload = imagesToUpload;

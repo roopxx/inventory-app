@@ -46,6 +46,7 @@ async function itemCreate(
   index,
   item_name,
   description,
+  imageURL,
   category,
   price,
   stock_in_hand
@@ -53,6 +54,7 @@ async function itemCreate(
   const itemDetail = {
     item_name: item_name,
     description: description,
+    imageURL: imageURL,
     category: category,
     price: price,
     stock_in_hand: stock_in_hand,
@@ -368,6 +370,7 @@ async function createItems() {
         index,
         item.name,
         item.description,
+        item.imageURL,
         categories[0],
         getRandomNumber(5, 55).toFixed(2),
         getRandomNumber(0, 15).toFixed(0)
@@ -379,6 +382,7 @@ async function createItems() {
         index,
         item.name,
         item.description,
+        item.imageURL,
         categories[1],
         getRandomNumber(10, 60).toFixed(2),
         getRandomNumber(0, 15).toFixed(0)
@@ -390,6 +394,7 @@ async function createItems() {
         index,
         item.name,
         item.description,
+        item.imageURL,
         categories[2],
         getRandomNumber(7, 30).toFixed(2),
         getRandomNumber(0, 15).toFixed(0)
@@ -401,6 +406,7 @@ async function createItems() {
         index,
         item.name,
         item.description,
+        item.imageURL,
         categories[3],
         getRandomNumber(9, 30).toFixed(2),
         getRandomNumber(0, 15).toFixed(0)
@@ -412,6 +418,7 @@ async function createItems() {
         index,
         item.name,
         item.description,
+        item.imageURL,
         categories[4],
         getRandomNumber(12, 40).toFixed(2),
         getRandomNumber(0, 15).toFixed(0)
@@ -423,6 +430,7 @@ async function createItems() {
         index,
         item.name,
         item.description,
+        item.imageURL,
         categories[5],
         getRandomNumber(3, 30).toFixed(2),
         getRandomNumber(0, 15).toFixed(0)

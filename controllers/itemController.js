@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Items = require("../models/item");
 const Category = require("../models/category");
+const upload = require("../utils/mutler");
+const { imagesToUpload } = require("../utils/cloudinary");
 
 exports.items_list = asyncHandler(async (req, res, next) => {
   const items = await Items.find({}).exec();
@@ -26,20 +28,34 @@ exports.item_create_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.item_create_post = asyncHandler(async (req, res, next) => {
-  const item = new Items({
-    item_name: req.body.item_name,
-    description: req.body.description,
-    category: req.body.category,
-    price: req.body.price,
-    stock_availability: req.body.stock_in_hand > 0 ? true : false,
-    stock_in_hand: req.body.stock_in_hand,
-  });
+exports.item_create_post = [
+  upload.single("image"),
+  asyncHandler(async (req, res, next) => {
+    console.log(req.file);
+    let imageURL = null;
+    if (req.file) {
+      try {
+        imageURL = await imagesToUpload(req.file.path);
+      } catch (error) {
+        return next(error);
+      }
+    }
 
-  await item.save();
+    const item = new Items({
+      item_name: req.body.item_name,
+      description: req.body.description,
+      imageURL: `${imageURL}`,
+      category: req.body.category,
+      price: req.body.price,
+      stock_availability: req.body.stock_in_hand > 0 ? true : false,
+      stock_in_hand: req.body.stock_in_hand,
+    });
 
-  res.redirect(item.url);
-});
+    await item.save();
+
+    res.redirect(item.url);
+  }),
+];
 
 exports.item_delete_get = asyncHandler(async (req, res, next) => {
   const item = await Items.findById(req.params.id).populate("category").exec();
@@ -82,17 +98,28 @@ exports.item_update_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.item_update_post = asyncHandler(async (req, res, next) => {
-  const item = new Items({
-    item_name: req.body.item_name,
-    description: req.body.description,
-    category: req.body.category,
-    price: req.body.price,
-    stock_availability: req.body.stock_in_hand > 0 ? true : false,
-    stock_in_hand: req.body.stock_in_hand,
-    _id: req.params.id,
-  });
+exports.item_update_post = [
+  upload.single("image"),
+  asyncHandler(async (req, res, next) => {
+    let imageURL = null;
 
-  await Items.findByIdAndUpdate(req.params.id, item).exec();
-  res.redirect(item.url);
-});
+    if (req.file) {
+      imageURL = await imagesToUpload(req.file.path);
+    }
+    console.log(imageURL);
+
+    const item = new Items({
+      item_name: req.body.item_name,
+      description: req.body.description,
+      imageURL: `${imageURL}`,
+      category: req.body.category,
+      price: req.body.price,
+      stock_availability: req.body.stock_in_hand > 0 ? true : false,
+      stock_in_hand: req.body.stock_in_hand,
+      _id: req.params.id,
+    });
+
+    await Items.findByIdAndUpdate(req.params.id, item).exec();
+    res.redirect(item.url);
+  }),
+];

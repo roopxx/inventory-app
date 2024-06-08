@@ -6,7 +6,7 @@ block content
         a.button.i-delete(href=`${item.url}/delete`) Delete Item
     .item-detail
         .item-showcase 
-            img(src='/images/sample.jpg', alt=item.item_name)
+            img(src=item.imageURL, alt=item.item_name)
             p.item-description= item.description
         p.item-price Rs: #{item.price}
         .button-group 

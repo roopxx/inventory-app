@@ -3,13 +3,16 @@ extends layout
 block content
     .header 
         h1.title= title
-    form(method='POST')
+    form(method='POST', enctype='multipart/form-data')
         div.form-group
             label(for='name') Name:
             input#name.form-control(type='text', name='item_name', value=(item === undefined ? '' : item.item_name))
         div.form-group
             label(for='description') Description:
             input#description.form-control(type='text', name='description', value=(item === undefined ? '' : item.description))
+        div.form-group
+            label(for='imageURL') Image: 
+            input#imageURL.form-control(type='file', name='image')
         div.form-group
             label(for='price') Price:
             input#price.form-control(type='number', name='price', value=(item === undefined ? '' : item.price))

@@ -13,6 +13,10 @@ const ItemSchema = new Schema({
     required: true,
     maxLength: 100,
   },
+  imageURL: {
+    type: String,
+    required: true,
+  },
   category: {
     type: Schema.Types.ObjectId,
     ref: "Category",

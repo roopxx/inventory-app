@@ -7,7 +7,7 @@ block content
   ul.category-item-list
     each item in category_items
       li.item
-        img(src='/images/sample.jpg', alt=item.item_name)
+        img(src=item.imageURL, alt=item.item_name)
         h3.item-name= item.item_name
         p.item-description= item.description
         p.item-price Rs: #{item.price}
