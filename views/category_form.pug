@@ -1,6 +1,11 @@
 extends layout
 
 block content
+    if errors
+        ol.error-modal
+            for error in errors
+                li.validation-error!= error.msg
+    
     .header 
         h1.title= title
     form(method='POST')
@@ -10,8 +15,3 @@ block content
         .button-group 
             button.button.submit(type='submit') Submit
             a.button.cancel(href='/store/categories') Cancel
-
-    if errors
-        ul
-            for error in errors
-                li!= error.msg

@@ -248,6 +248,13 @@ form {
   border-radius: 4px;
 }
 
+.form-control[type="file"] {
+  display: inline-block;
+  padding: 7px 12px;
+  cursor: pointer;
+  border: none;
+}
+
 label {
   font-size: 1.5em;
   font-weight: bold;
@@ -307,4 +314,21 @@ a {
   font-size: 1.5em;
   margin-bottom: 10px;
   color: #555;
+}
+
+.error-modal {
+  background: #ffe17e;
+  margin: 1em 2em;
+  padding: 1em;
+  padding-left: 2em;
+  border: 1px solid black;
+}
+
+ol li::marker {
+  color: black;
+}
+
+.validation-error {
+  color: red;
+  font-weight: bold;
 }

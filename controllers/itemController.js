@@ -73,7 +73,7 @@ exports.item_create_post = [
       stock_availability: req.body.stock_in_hand > 0 ? true : false,
       stock_in_hand: req.body.stock_in_hand,
     });
-
+    console.log(errors);
     if (!errors.isEmpty()) {
       const categories = await Category.find({}, "type").exec();
       return res.render("item_form", {

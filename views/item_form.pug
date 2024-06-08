@@ -1,6 +1,10 @@
 extends layout
 
 block content
+    if errors
+        ol.error-modal
+            for error in errors
+                li.validation-error!= error.msg
     .header 
         h1.title= title
     form(method='POST', enctype='multipart/form-data')
@@ -32,8 +36,3 @@ block content
                 a.button.cancel(href=`${item.url}`) Cancel
             else
                 a.button.cancel(href='/store/items') Cancel
-
-    if errors
-        ul
-            for error in errors
-                li!= error.msg
