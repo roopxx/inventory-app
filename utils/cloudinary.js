@@ -29,12 +29,15 @@ const images = [
   "public/images/no-grain-CF.jpeg",
   "public/images/nutrient-CT.jpeg",
   "public/images/organic-DF.jpeg",
+  "public/images/puppy-chow-DF.jpg",
   "public/images/puzzle-DT.jpeg",
   "public/images/rawhide-DT.jpeg",
   "public/images/rubber-DT.jpg",
   "public/images/salmon-tuna-chicken-CT.jpeg",
   "public/images/scratch-CT.jpeg",
   "public/images/senior-cat-CF.jpeg",
+  "public/images/senior-DF.webp",
+  "public/images/soft-CT.jpg",
   "public/images/soft-DT.jpeg",
   "public/images/squeaky-DT.jpg",
   "public/images/teaser-CT.jpeg",
@@ -43,6 +46,7 @@ const images = [
   "public/images/variety-DF.jpeg",
   "public/images/vegetable-DT.jpeg",
   "public/images/weight-management-DF.jpeg",
+  "public/images/wet-DF.webp",
   "public/images/wet-food-CF.jpeg",
 ];
 
